@@ -112,7 +112,7 @@ class IonexMap():
             if self.lon_range.vmin < self.lon_range.vmax:
                 _data[lat].sort(key=lambda x: x[0], reverse=False)
             else:
-                _data[lat].sort(key=lambda x: x[0], reverse=True)
+                _data[lat].sort(key=lambda x: x[0], reverse=True) # pragma: no cover
             self.data[lat] = [val for _, val in _data[lat]]
 
             

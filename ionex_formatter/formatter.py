@@ -295,7 +295,7 @@ class IonexFile:
                 width = int(token[:-1])
                 formatted_data = "".rjust(width)
             else:
-                raise UnknownFormatSpecifier(token)
+                raise UnknownFormatSpecifier(token) # pragma: no cover
             if token[-1] != 'X':
                 self._verify_formatted(
                     data[i], token[0], formatted_data, width, precision

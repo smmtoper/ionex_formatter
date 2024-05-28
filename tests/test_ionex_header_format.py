@@ -62,3 +62,17 @@ class TestIoneHeaderFormat:
         header = IonexHeader_V_1_1()
         with pytest.raises(TypeError):
             header.load_descriptions(corrupted_descrition_path)
+            
+    def test_header_update(self):
+        IonexHeader_V_1_1()._update()
+
+    def test_file_does_not_exist(self):
+        with pytest.raises(FileNotFoundError):
+            IonexHeader_V_1_1().load_descriptions("file_that_does_not_exist.json")
+            
+    def test_is_not_dict(self):
+        with pytest.raises(TypeError):
+            IonexHeader_V_1_1().load_descriptions("tests/data_samples/wrong_header_line_desc.json")
+
+    def test_line_tokens(self):
+        IonexHeader_V_1_1().line_tokens("EPOCH OF FIRST MAP")

@@ -88,6 +88,13 @@ class TestIonexHeaderBuild():
             "s:                  COMMENT             "
         ]
         assert formatter.header["COMMENT"] == expected
+        
+    def test_comment_string(self):
+        formatter = IonexFile()
+        com = "TEC values in  0.1 TECUs; 9999 if no value available       "
+        formatter.add_comment(com)
+        expected  = ["TEC values in 0.1 TECUs; 9999 if no value available         COMMENT             "]
+        assert formatter.header["COMMENT"] == expected
 
     def test_description(self):
         formatter = IonexFile()

@@ -1,5 +1,6 @@
 import pytest
 from ionex_formatter import formatter
+from ionex_formatter.formatter import HeaderDuplicatedLine
 from ionex_formatter.spatial import SpatialRange
 
 class TestSpatialGridDimensions():
@@ -12,6 +13,13 @@ class TestSpatialGridDimensions():
         height_grid = SpatialRange(450, 450, 0)
         ionex_file_formatter.set_spatial_grid(lat_grid, lon_grid, height_grid)
         return ionex_file_formatter
+    
+    def test_duplicate(self, file_formatter):
+        lat_grid = SpatialRange(87.5, -87.5, -2.5)
+        lon_grid = SpatialRange(-180, 180, 5)
+        height_grid = SpatialRange(450, 450, 0)
+        with pytest.raises(HeaderDuplicatedLine):
+            file_formatter.set_spatial_grid(lat_grid, lon_grid, height_grid)
     
     def test_lat_grid(self, file_formatter):
         lat_lines = file_formatter.header["LAT1 / LAT2 / DLAT"] 

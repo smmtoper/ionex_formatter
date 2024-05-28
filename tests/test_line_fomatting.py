@@ -2,7 +2,9 @@ import pytest
 from ionex_formatter.formatter import (
     IonexFile,
     NumericTokenTooBig,
-    UnknownFormatSpecifier
+    UnknownFormatSpecifier,
+    UnknownFormatingError,
+    HeaderDuplicatedLine
 )
 
 class TestLineFormating():
@@ -51,6 +53,8 @@ class TestLineFormating():
         format_spec = "A10, I2, A3"
         with pytest.raises(NumericTokenTooBig):
             formatted_line = formatter.format_header_line(data, format_spec)
+        with pytest.raises(NumericTokenTooBig):
+            formatter._get_header_numeric_token(10.01, 1, 0)
 
     def test_format_line_extra_data(self, formatter):
         data = ['1', '2', '3', '4']
@@ -70,3 +74,9 @@ class TestLineFormating():
         format_spec = "I3, G6.1, A2"
         with pytest.raises(UnknownFormatSpecifier):
             formatter.format_header_line(data, format_spec)
+    
+    def test_verify_formatted(self, formatter):
+        with pytest.raises(UnknownFormatSpecifier):
+            formatter._verify_formatted(True,'FIA','FIA',5,4)
+        with pytest.raises(UnknownFormatingError):
+            formatter._verify_formatted('55','I','12',6,3)

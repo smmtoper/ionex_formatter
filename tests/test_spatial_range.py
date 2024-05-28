@@ -80,15 +80,15 @@ class TestSpatialGridDimensions():
 
     def test_step_decimal_reduce_accuracy_raises(self):
         with pytest.raises(DecimalDigitReduceAccuracyError):
-            SpatialRange(0.0, 1.0, 0.125, decimal=2)
+            SpatialRange(0.0, 1.123, 0.1, decimal=2)
             
     def test_max_decimal_reduce_accuracy_raises(self):
         with pytest.raises(DecimalDigitReduceAccuracyError):
-            SpatialRange(0.0, 1.125, 0.125, decimal=2)
+            SpatialRange(0.0, 1.1, 0.125, decimal=2)
 
     def test_min_decimal_reduce_accuracy_raises(self):
         with pytest.raises(DecimalDigitReduceAccuracyError):
-            SpatialRange(0.125, 1.0, 0.125, decimal=2)
+            SpatialRange(0.125, 1.0, 0.1, decimal=2)
 
 
 
